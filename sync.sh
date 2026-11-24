@@ -23,7 +23,7 @@ npm ci
 npm run build
 
 # check to prevent wiping remote if dist/ is empty
-if [[ ! -f dist/index.html ]] then
+if [[ ! -f dist/index.html ]]; then
     echo "dist/index.html is missing. Aborting sync." >&2
     exit 1
 fi
