@@ -3,10 +3,10 @@
 set -euo pipefail
 
 # change these based on setup deltas
-REPO='$HOME/Documents/GitHub/jsauve.ca/jsauve/'
+REPO="$HOME/Documents/GitHub/jsauve.ca/jsauve/"
 REMOTE='remilien:/var/www/html'
 
-cd "REPO"
+cd "$REPO"
 
 # block deployment if changes are uncommitted
 # i.e. if there is a non-zero git diff with HEAD
