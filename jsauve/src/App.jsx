@@ -4,7 +4,7 @@ import './App.css'
 
 
 const fontNames = [
-    useAsciiText, bloody, ansiShadow, block, alpha, bigMoneySe, chiseled, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, defLeppard
+    bloody, ansiShadow, block, alpha, bigMoneySe, chiseled, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, defLeppard,
 ];
 
 
@@ -14,7 +14,7 @@ const profile_links = [
     {title: 'Devpost', url: 'https://devpost.com/jacob-sauve'},
 ];
 
-function AsciiBanner({ msg, animate = false }: { msg: string; animate?: boolean }) {
+function AsciiBanner({ msg, animate = false }){
     const banner = useAsciiText({
         font: fontNames.at(Math.floor(Math.random() * fontNames.length)),
         text: msg,
