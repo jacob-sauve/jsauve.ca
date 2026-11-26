@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useState } from 'react'
+import { useLayoutEffect, useMemo, useState, useRef } from 'react'
 import {
     useAsciiText, bloody, ansiShadow, swampLand, bigMoneySe, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, henry3D, ghoulish, fireFontK, diamFont, whimsy
 } from 'react-ascii-text'
@@ -7,7 +7,6 @@ import './App.css'
 const fontNames = [
     bloody, ansiShadow, swampLand, bigMoneySe, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, henry3D, ghoulish, fireFontK, diamFont, whimsy
 ];
-
 
 const profile_links = [
     { title: 'LinkedIn', url: 'https://www.linkedin.com/in/jacob-l-sauve-04a099335' },
@@ -85,28 +84,39 @@ function ProfileLinks() {
 
 function Wiggle() {
     /*Shoutout Dave Plant*/
+    const wiggleRef = useRef(null);
+    function updateWiggle(e) {
+        const svgWidth = e.currentTarget.getBoundingClientRect().width; //actual svg width rn
+        const mouseX = (e.nativeEvent.offsetX/svgWidth)*1200; // actual mouse position
+        const mouseYdirection = e.nativeEvent.movementY > 0 ? 1 : -1;
+        if (wiggleRef?.current) {
+            // update wiggle if exists
+            wiggleRef.current.setAttribute('d', `M -2400 30 L ${mouseX - 20} 30 Q ${mouseX} ${30+20*mouseYdirection} ${mouseX + 20} 30 L 2400 30`);
+        }
+    }
     return (
-        <svg style={{ height: '60px', width: '100vw' }} viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <defs> {/*tag used to hide the path*/}
-                <path id="wiggle-path" d="M -2400 30 L 2400 30" stroke="currentColor" fill="none" />
-            </defs>
+        <svg style={{ height: '60px', width: '100vw' }} viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" onMouseMove={
+            (e) => updateWiggle(e)
+        }>
+        {/*<defs> tag used to hide the path*/}
+                <path ref={wiggleRef} id="wiggle-path" d="M -2400 30 Q 0 30 2400 30" stroke="currentColor" fill="none" /> 
+        {/*</defs>*/}
             <text fill="currentColor" fontSize="large">
-                <textPath href="#wiggle-path">
+                <textPath href="#wiggle-path" xlinkHref="#wiggle-path">
                     <animate
                     attributeName="startOffset"
                     begin="0s"
-                    dur="16s"
-                    from="0%"
-                    to="100%"
-                    repeatCount="indefinite" />
+                    dur="8s"
+                    from="50%"
+                    to="100%" />
                     {getQuip()}
                 </textPath>
             </text>
             <text fill="currentColor" fontSize="large">
-                <textPath href="#wiggle-path">
+                <textPath href="#wiggle-path" xlinkHref="#wiggle-path">
                     <animate
                     attributeName="startOffset"
-                    begin="8s"
+                    begin="4s"
                     dur="16s"
                     from="0%"
                     to="100%"
