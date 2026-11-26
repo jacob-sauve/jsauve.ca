@@ -1,8 +1,9 @@
-import { useLayoutEffect, useMemo, useState, useRef } from 'react'
+import { useLayoutEffect, useMemo, useState, useRef } from 'react';
+import { useSpring, animated, to, config } from '@react-spring/web';
 import {
     useAsciiText, bloody, ansiShadow, swampLand, bigMoneySe, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, henry3D, ghoulish, fireFontK, diamFont, whimsy
-} from 'react-ascii-text'
-import './App.css'
+} from 'react-ascii-text';
+import './App.css';
 
 const fontNames = [
     bloody, ansiShadow, swampLand, bigMoneySe, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, henry3D, ghoulish, fireFontK, diamFont, whimsy
@@ -84,22 +85,33 @@ function ProfileLinks() {
 
 function Wiggle() {
     /*Shoutout Dave Plant*/
-    const wiggleRef = useRef(null);
+    // springy animation for strumming
+    const [{x, y}, api] = useSpring(() => ({
+        x: 600,
+        y: 30,
+        config: { tension: 350, friction: 5 },
+    }));
+
+    // for d generation during spring animation
+    const d = to([x, y], (currX, currY) => `M -2400 30 L ${currX - 150} 30 Q ${currX} ${currY} ${currX + 150} 30 L 2400 30`);
+
     function updateWiggle(e) {
         const svgWidth = e.currentTarget.getBoundingClientRect().width; //actual svg width rn
         const mouseX = (e.nativeEvent.offsetX/svgWidth)*1200; // actual mouse position
         const mouseYdirection = e.nativeEvent.movementY > 0 ? 1 : -1;
-        if (wiggleRef?.current) {
-            // update wiggle if exists
-            wiggleRef.current.setAttribute('d', `M -2400 30 L ${mouseX - 20} 30 Q ${mouseX} ${30+20*mouseYdirection} ${mouseX + 20} 30 L 2400 30`);
-        }
+        // update wiggle twang if needed
+        api.start({
+            from: { x: mouseX, y: 30 + 20*mouseYdirection},
+            to: { y: 30 }, // x doesn't change
+            config: config.wobbly,
+        });
     }
     return (
         <svg style={{ height: '60px', width: '100vw' }} viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" onMouseMove={
             (e) => updateWiggle(e)
         }>
         {/*<defs> tag used to hide the path*/}
-                <path ref={wiggleRef} id="wiggle-path" d="M -2400 30 Q 0 30 2400 30" stroke="currentColor" fill="none" /> 
+            <animated.path id="wiggle-path" d={d} stroke="currentColor" fill="none" /> 
         {/*</defs>*/}
             <text fill="currentColor" fontSize="large">
                 <textPath href="#wiggle-path" xlinkHref="#wiggle-path">
@@ -108,7 +120,8 @@ function Wiggle() {
                     begin="0s"
                     dur="8s"
                     from="50%"
-                    to="100%" />
+                    to="100%"
+                    repeatCount="indefinite" />
                     {getQuip()}
                 </textPath>
             </text>
@@ -116,7 +129,7 @@ function Wiggle() {
                 <textPath href="#wiggle-path" xlinkHref="#wiggle-path">
                     <animate
                     attributeName="startOffset"
-                    begin="4s"
+                    begin="8s"
                     dur="16s"
                     from="0%"
                     to="100%"
