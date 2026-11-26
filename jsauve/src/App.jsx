@@ -15,6 +15,13 @@ const profile_links = [
     { title: 'Devpost', url: 'https://devpost.com/jacob-sauve' },
 ];
 
+const quipList = [
+    "Twelve hours on the clock, except in Venice",
+    "Oh what I'd give right about now for a block of aged cheese...",
+    "Named 'best website on the Internet' by its creator upon release",
+];
+
+
 function getMaxChars(text) {
     if (! text) return 1;
     const lines = text.split("\n");
@@ -22,7 +29,7 @@ function getMaxChars(text) {
 }
 
 function getQuip() {
-    return "this is a test quip";
+    return quipList.at(Math.floor(Math.random() * quipList.length));
 }
 
 function AsciiBanner({ msg, animate = false, heading }){
@@ -118,10 +125,10 @@ function Wiggle() {
                     <animate
                     attributeName="startOffset"
                     begin="0s"
-                    dur="8s"
+                    dur="10s"
                     from="50%"
                     to="100%"
-                    repeatCount="indefinite" />
+                    />
                     {getQuip()}
                 </textPath>
             </text>
@@ -129,8 +136,20 @@ function Wiggle() {
                 <textPath href="#wiggle-path" xlinkHref="#wiggle-path">
                     <animate
                     attributeName="startOffset"
-                    begin="8s"
-                    dur="16s"
+                    begin="10s"
+                    dur="20s"
+                    from="0%"
+                    to="100%"
+                    repeatCount="indefinite" />
+                    {getQuip()}
+                </textPath>
+            </text>
+                <text fill="currentColor" fontSize="large">
+                <textPath href="#wiggle-path" xlinkHref="#wiggle-path">
+                    <animate
+                    attributeName="startOffset"
+                    begin="20s"
+                    dur="20s"
                     from="0%"
                     to="100%"
                     repeatCount="indefinite" />
