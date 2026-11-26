@@ -1,11 +1,11 @@
 import { useLayoutEffect, useMemo, useState } from 'react'
 import {
-    useAsciiText, bloody, ansiShadow, block, alpha, bigMoneySe, chiseled, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, defLeppard, henry3D, ghoulish, fireFontK, diamFont, blurVisionASCII, whimsy
+    useAsciiText, bloody, ansiShadow, swampLand, bigMoneySe, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, henry3D, ghoulish, fireFontK, diamFont, whimsy
 } from 'react-ascii-text'
 import './App.css'
 
 const fontNames = [
-    bloody, ansiShadow, block, alpha, bigMoneySe, chiseled, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, defLeppard, henry3D, ghoulish, fireFontK, diamFont, blurVisionASCII, whimsy
+    bloody, ansiShadow, swampLand, bigMoneySe, ghost, dancingFont, crawford2, diamond, dietCola, dosRebel, henry3D, ghoulish, fireFontK, diamFont, whimsy
 ];
 
 
@@ -30,6 +30,8 @@ function AsciiBanner({ msg, animate = false, heading }){
     const pickedFont = fontNames.at(Math.floor(Math.random() * fontNames.length));
 
     const banner = useAsciiText({
+        animationDelay: 2000,
+        animationSpeed: 15,
         font: pickedFont,
         text: msg,
         isAnimated: animate,
