@@ -17,8 +17,9 @@ const profile_links = [
 
 const quipList = [
     "Twelve hours on the clock, except in Venice",
-    "Oh what I'd give right about now for a block of aged cheese...",
+    " Oh what I'd give right about now for a block of aged cheese...",
     "Named 'best website on the Internet' by its creator upon release",
+    "𐃅-----𐂂-𐂂-𐂂-𐂂-𐂂 ",
 ];
 
 
@@ -96,7 +97,7 @@ function Wiggle() {
     const [{x, y}, api] = useSpring(() => ({
         x: 600,
         y: 30,
-        config: { tension: 350, friction: 5 },
+        config: { tension: 320, friction: 5 },
     }));
 
     // for d generation during spring animation
